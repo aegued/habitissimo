@@ -64,7 +64,20 @@ class SolicitudesController extends BaseController
     //Update the Solicitude
     public function update(Request $request, $id)
     {
+        $solicitude = Solicitude::find($id);
 
+        if (!$solicitude)
+            return $this->sendError('Acceso Denegado','No existe la Solicitud.',403);
+
+        if ($solicitude->status != 'Pendiente')
+            return $this->sendError('Acceso Denegado','La solicitud no se encuentra en estado Pendiente.',403);
+
+        $solicitude->title          =   $request->title;
+        $solicitude->description    =   $request->description;
+        $solicitude->category       =   $request->category;
+        $solicitude->save();
+
+        return $this->sendResponse($solicitude,'Solicitud actualizada correctamente');
     }
 
     //Public the Solicitude
