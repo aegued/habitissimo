@@ -123,6 +123,13 @@ class SolicitudesController extends BaseController
     //List the Solicitudes by User
     public function listSolicitudes($email)
     {
+        $user = User::where('email', $email)->get()->first();
 
+        if (!$user)
+            return $this->sendError('Acceso Denegado','No existe un usuario con ese email.', 404);
+
+        $solicitudes = $user->solicitudes()->paginate(10);
+
+        return $this->sendResponse($solicitudes, 'Listado de Solicitudes');
     }
 }
