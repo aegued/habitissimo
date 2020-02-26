@@ -83,7 +83,24 @@ class SolicitudesController extends BaseController
     //Public the Solicitude
     public function publicSolicitude($id)
     {
+        $solicitude = Solicitude::find($id);
 
+        if (!$solicitude)
+            return $this->sendError('Acceso Denegado','No existe la Solicitud.',403);
+
+        if ($solicitude->status != 'Pendiente')
+            return $this->sendError('Acceso Denegado','La solicitud no se encuentra en estado Pendiente.',403);
+
+        if (!$solicitude->title)
+            return $this->sendError('Acceso Denegado','La solicitud no tiene titulo. Edite la Solicitud y pongale titulo.',403);
+
+        if (!$solicitude->category)
+            return $this->sendError('Acceso Denegado','La solicitud no tiene categoria. Edite la Solicitud y asignele una categoria.',403);
+
+        $solicitude->status = 'Publicada';
+        $solicitude->save();
+
+        return $this->sendResponse($solicitude, 'Solicitud actualizada correctamente');
     }
 
     //Discard the Solicitude
