@@ -19,7 +19,7 @@ class CreateSolicitudesTable extends Migration
             $table->string('title')->nullable();
             $table->longText('description');
             $table->string('category')->nullable();
-            $table->enum('status',['Pendiente','Publicada','Descartada']);
+            $table->enum('status',['Pendiente','Publicada','Descartada'])->default('Pendiente');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
