@@ -55,12 +55,6 @@ class SolicitudesController extends BaseController
 
     }
 
-    //Get the Solicitude Data
-    public function show($id)
-    {
-
-    }
-
     //Update the Solicitude
     public function update(Request $request, $id)
     {
@@ -109,7 +103,7 @@ class SolicitudesController extends BaseController
         $solicitude = Solicitude::find($id);
 
         if (!$solicitude)
-            return $this->sendError('Acceso Denegado','No existe la Solicitud.',403);
+            return $this->sendError('Acceso Denegado','No existe la Solicitud.',404);
 
         if ($solicitude->status == 'Descartada')
             return $this->sendError('Acceso Denegado','La solicitud ya se encuentra en estado Descartada.',403);

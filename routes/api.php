@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('solicitudes','SolicitudesController');
+Route::apiResource('solicitudes','SolicitudesController')->only(['store','update']);
 Route::get('solicitudes/{id}/public', 'SolicitudesController@publicSolicitude');
 Route::get('solicitudes/{id}/discard', 'SolicitudesController@discardSolicitude');
 Route::get('solicitudes/{email}/list', 'SolicitudesController@listSolicitudes');
