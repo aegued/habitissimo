@@ -106,7 +106,18 @@ class SolicitudesController extends BaseController
     //Discard the Solicitude
     public function discardSolicitude($id)
     {
+        $solicitude = Solicitude::find($id);
 
+        if (!$solicitude)
+            return $this->sendError('Acceso Denegado','No existe la Solicitud.',403);
+
+        if ($solicitude->status == 'Descartada')
+            return $this->sendError('Acceso Denegado','La solicitud ya se encuentra en estado Descartada.',403);
+
+        $solicitude->status = 'Descartada';
+        $solicitude->save();
+
+        return $this->sendResponse($solicitude, 'Solicitud actualizada correctamente');
     }
 
     //List the Solicitudes by User
