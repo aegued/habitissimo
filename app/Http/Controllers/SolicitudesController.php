@@ -16,15 +16,18 @@ class SolicitudesController extends BaseController
             'description.required'  =>  'La descripción es requerida',
             'email.required'        =>  'El email es requerido',
             'email.email'           =>  'El email tiene que ser válido',
+            'email.not_regex'       =>  'No se permiten correos de Hotmail',
             'phone.required'        =>  'El teléfono es requerido',
             'address.required'      =>  'La dirección es requerida',
+            'name.required'         =>  'El nombre es requerido',
         ];
 
         $validator = Validator::make($request->all(), [
             'description'   =>  'required',
-            'email'         =>  'required|email:rfc,dns',
+            'email'         =>  ['required','email:rfc,dns','not_regex:/(.*)@hotmail\.[a-zA-Z0-9_]/i'],
             'phone'         =>  'required',
-            'address'       =>  'required'
+            'address'       =>  'required',
+            'name'          =>  'required',
         ], $messages);
 
         if ($validator->fails())
@@ -41,6 +44,7 @@ class SolicitudesController extends BaseController
         else
         {
             $user = new User();
+            $user->name     =   $request->name;
             $user->email    =   $request->email;
             $user->phone    =   $request->phone;
             $user->address  =   $request->address;
