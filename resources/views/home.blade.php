@@ -53,6 +53,8 @@
                         <div class="card-body">
 
                             <form id="form" action="{{ url('api/solicitudes') }}" method="POST">
+                                @csrf
+
                                 <div class="form-group">
                                     <label for="description">Descripción</label>
                                     <input type="text" class="form-control" name="description" id="description">
@@ -88,15 +90,15 @@
                                         <div class="col-6">
                                             <label for="category">Categoría</label>
                                             <select class="form-control" name="category" id="category">
-                                                <option>-- Seleccionar Categoría --</option>
+                                                <option value="">-- Seleccionar Categoría --</option>
                                             </select>
                                             <div class="invalid-feedback"></div>
                                         </div>
 
                                         <div class="col-6">
                                             <label for="subcategory">Subcategoría</label>
-                                            <select class="form-control" name="subcategory" id="subcategory">
-                                                <option>-- Seleccionar Subcategoría --</option>
+                                            <select class="form-control" name="subcategory" id="subcategory" disabled>
+                                                <option value="">-- Seleccionar Subcategoría --</option>
                                             </select>
                                             <div class="invalid-feedback"></div>
                                         </div>

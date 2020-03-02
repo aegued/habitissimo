@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Solicitude;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class SolicitudesController extends BaseController
@@ -12,6 +13,7 @@ class SolicitudesController extends BaseController
     //Create and Store a new Solicitude
     public function store(Request $request)
     {
+        Log::debug($request->all());
         $messages = [
             'description.required'  =>  'La descripción es requerida',
             'email.required'        =>  'El email es requerido',

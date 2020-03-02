@@ -7,7 +7,36 @@ $(function () {
         'Cargando...' +
         '</div>';
     var alerts = form.find('.alerts');
+    var categoriesSelect = form.find('#category');
+    var subcategoriesSelect = form.find('#subcategory');
 
+    //Fill the Category Select
+    $.get('api/categories', function (response) {
+        let data = response.data;
+
+        data.forEach(element => {
+            categoriesSelect.append('<option value="'+element.name+'" data-id="'+element.id+'">'+element.name+'</option>');
+        });
+    });
+
+    //Fill the Subcategory Select when select a Category option
+    categoriesSelect.on('change', function () {
+        let optionSelected = $(this).find('option:selected');
+        let categoryId = optionSelected.data('id');
+
+        subcategoriesSelect.html('<option value="">-- Seleccionar Subcategoría --</option>');
+        subcategoriesSelect.removeAttr('disabled');
+
+        $.get('api/categories/'+categoryId+'/subcategories', function (response) {
+            let data = response.data;
+
+            data.forEach(element => {
+                subcategoriesSelect.append('<option value="'+element.name+'" data-id="'+element.id+'">'+element.name+'</option>');
+            });
+        });
+    });
+
+    //OnSubmit Form
     form.on('submit', function (e) {
         e.preventDefault();
 

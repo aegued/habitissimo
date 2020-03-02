@@ -3,7 +3,8 @@
 <h2>How install:</h2>
 <ol>
     <li>Configure the Data Base in the .env file</li>
-    <li>Run php artisan migrate</li>
+    <li>Run php artisan migrate --seed</li>
+    <li>Run <b>php artisan serve</b> or configure a <b>Virtual Host</b></li>
     <li>Enjoy</li>
 </ol>
 

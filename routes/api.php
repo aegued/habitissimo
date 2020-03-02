@@ -17,3 +17,10 @@ Route::apiResource('solicitudes','SolicitudesController')->only(['store','update
 Route::get('solicitudes/{id}/public', 'SolicitudesController@publicSolicitude');
 Route::get('solicitudes/{id}/discard', 'SolicitudesController@discardSolicitude');
 Route::get('solicitudes/{email}/list', 'SolicitudesController@listSolicitudes');
+Route::get('categories','CategoriesController@index');
+Route::get('categories/{id}/subcategories','CategoriesController@getSubcategories');
+
+
+
+
+
